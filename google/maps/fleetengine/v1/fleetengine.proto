@@ -1,4 +1,4 @@
-// Copyright 2023 Google LLC
+// Copyright 2024 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -23,14 +23,20 @@ import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
 import "google/type/latlng.proto";
 
+option csharp_namespace = "Google.Maps.FleetEngine.V1";
 option go_package = "cloud.google.com/go/maps/fleetengine/apiv1/fleetenginepb;fleetenginepb";
 option java_multiple_files = true;
 option java_outer_classname = "FleetEngine";
-option java_package = "google.maps.fleetengine.v1";
+option java_package = "com.google.maps.fleetengine.v1";
 option objc_class_prefix = "CFE";
+option php_namespace = "Google\\Maps\\FleetEngine\\V1";
+option ruby_package = "Google::Maps::FleetEngine::V1";
 
-// Identifies a terminal point.
+// Deprecated: TerminalPoints are no longer supported in Fleet Engine. Use
+// `TerminalLocation.point` instead.
 message TerminalPointId {
+  option deprecated = true;
+
   // Deprecated.
   oneof Id {
     // Deprecated.
@@ -40,8 +46,8 @@ message TerminalPointId {
     string generated_id = 3 [deprecated = true];
   }
 
-  // Unique ID of the terminal point.
-  string value = 4;
+  // Deprecated.
+  string value = 4 [deprecated = true];
 }
 
 // Describes the location of a waypoint.
@@ -49,10 +55,10 @@ message TerminalLocation {
   // Required. Denotes the location of a trip waypoint.
   google.type.LatLng point = 1 [(google.api.field_behavior) = REQUIRED];
 
-  // ID of the terminal point.
-  TerminalPointId terminal_point_id = 2;
+  // Deprecated: Specify the `point` field instead.
+  TerminalPointId terminal_point_id = 2 [deprecated = true];
 
-  // Deprecated.
+  // Deprecated: Specify the `point` field instead.
   string access_point_id = 3 [deprecated = true];
 
   // Deprecated.
@@ -269,7 +275,7 @@ message VehicleLocation {
   // Timestamp associated with the raw location.
   google.protobuf.Timestamp raw_location_time = 17;
 
-  // Source of the raw location.
+  // Source of the raw location. Defaults to `GPS`.
   LocationSensor raw_location_sensor = 28;
 
   // Accuracy of `raw_location` as a radius, in meters.
@@ -281,7 +287,8 @@ message VehicleLocation {
   // Timestamp associated with the supplemental location.
   google.protobuf.Timestamp supplemental_location_time = 19;
 
-  // Source of the supplemental location.
+  // Source of the supplemental location. Defaults to
+  // `CUSTOMER_SUPPLIED_LOCATION`.
   LocationSensor supplemental_location_sensor = 20;
 
   // Accuracy of `supplemental_location` as a radius, in meters.

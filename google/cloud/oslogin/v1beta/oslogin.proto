@@ -1,4 +1,4 @@
-// Copyright 2023 Google LLC
+// Copyright 2024 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -121,6 +121,10 @@ service OsLoginService {
     option (google.api.http) = {
       post: "/v1beta/{parent=users/*/projects/*/zones/*}:signSshPublicKey"
       body: "*"
+      additional_bindings {
+        post: "/v1beta/{parent=users/*/projects/*/locations/*}:signSshPublicKey"
+        body: "*"
+      }
     };
     option (google.api.method_signature) = "parent,ssh_public_key";
   }
@@ -230,6 +234,11 @@ message ImportSshPublicKeyRequest {
 
   // The view configures whether to retrieve security keys information.
   LoginProfileView view = 4;
+
+  // Optional. The regions to which to assert that the key was written.
+  // If unspecified, defaults to all regions.
+  // Regions are listed at https://cloud.google.com/about/locations#region.
+  repeated string regions = 5 [(google.api.field_behavior) = OPTIONAL];
 }
 
 // A response message for importing an SSH public key.
@@ -299,10 +308,7 @@ message SignSshPublicKeyRequest {
   // The SSH public key to sign.
   string ssh_public_key = 1;
 
-  // The parent project and zone for the signing request. This is needed to
-  // properly ensure per-organization ISS processing and potentially to provide
-  // for the possibility of zone-specific certificates used in the signing
-  // process.
+  // The parent project and region for the signing request.
   string parent = 2;
 }
 

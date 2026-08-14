@@ -9,14 +9,17 @@
 #    * extra_protoc_file_parameters
 # The complete list of preserved parameters can be found in the source code.
 
+# buildifier: disable=load-on-top
+
 # This is an API workspace, having public visibility by default makes perfect sense.
 package(default_visibility = ["//visibility:public"])
 
 ##############################################################################
 # Common
 ##############################################################################
-load("@rules_proto//proto:defs.bzl", "proto_library")
+# buildifier: disable=same-origin-load
 load("@com_google_googleapis_imports//:imports.bzl", "proto_library_with_info")
+load("@rules_proto//proto:defs.bzl", "proto_library")
 
 proto_library(
     name = "gkemulticloud_proto",
@@ -35,6 +38,7 @@ proto_library(
         "//google/api:field_behavior_proto",
         "//google/api:resource_proto",
         "//google/longrunning:operations_proto",
+        "//google/type:date_proto",
         "@com_google_protobuf//:empty_proto",
         "@com_google_protobuf//:field_mask_proto",
         "@com_google_protobuf//:timestamp_proto",
@@ -52,6 +56,7 @@ proto_library_with_info(
 ##############################################################################
 # Java
 ##############################################################################
+# buildifier: disable=same-origin-load
 load(
     "@com_google_googleapis_imports//:imports.bzl",
     "java_gapic_assembly_gradle_pkg",
@@ -118,6 +123,7 @@ java_gapic_assembly_gradle_pkg(
 ##############################################################################
 # Go
 ##############################################################################
+# buildifier: disable=same-origin-load
 load(
     "@com_google_googleapis_imports//:imports.bzl",
     "go_gapic_assembly_pkg",
@@ -133,6 +139,7 @@ go_proto_library(
     deps = [
         "//google/api:annotations_go_proto",
         "//google/longrunning:longrunning_go_proto",
+        "//google/type:date_go_proto",
     ],
 )
 
@@ -169,6 +176,7 @@ go_gapic_assembly_pkg(
 ##############################################################################
 # Python
 ##############################################################################
+# buildifier: disable=same-origin-load
 load(
     "@com_google_googleapis_imports//:imports.bzl",
     "py_gapic_assembly_pkg",
@@ -213,6 +221,7 @@ py_gapic_assembly_pkg(
 ##############################################################################
 # PHP
 ##############################################################################
+# buildifier: disable=same-origin-load
 load(
     "@com_google_googleapis_imports//:imports.bzl",
     "php_gapic_assembly_pkg",
@@ -229,11 +238,13 @@ php_gapic_library(
     name = "gkemulticloud_php_gapic",
     srcs = [":gkemulticloud_proto_with_info"],
     grpc_service_config = "gkemulticloud_grpc_service_config.json",
-    migration_mode = "MIGRATING",
+    migration_mode = "NEW_SURFACE_ONLY",
     rest_numeric_enums = False,
     service_yaml = "gkemulticloud_v1.yaml",
     transport = "grpc+rest",
-    deps = [":gkemulticloud_php_proto"],
+    deps = [
+        ":gkemulticloud_php_proto",
+    ],
 )
 
 # Open Source Packages
@@ -248,6 +259,7 @@ php_gapic_assembly_pkg(
 ##############################################################################
 # Node.js
 ##############################################################################
+# buildifier: disable=same-origin-load
 load(
     "@com_google_googleapis_imports//:imports.bzl",
     "nodejs_gapic_assembly_pkg",
@@ -278,6 +290,7 @@ nodejs_gapic_assembly_pkg(
 ##############################################################################
 # Ruby
 ##############################################################################
+# buildifier: disable=same-origin-load
 load(
     "@com_google_googleapis_imports//:imports.bzl",
     "ruby_cloud_gapic_library",
@@ -311,6 +324,7 @@ ruby_cloud_gapic_library(
     ruby_cloud_description = "Anthos Multi-Cloud provides a way to manage Kubernetes clusters that run on AWS and Azure infrastructure using the Anthos Multi-Cloud API. Combined with Connect, you can manage Kubernetes clusters on Google Cloud, AWS, and Azure from the Google Cloud Console.",
     ruby_cloud_title = "Anthos Multi-Cloud V1",
     service_yaml = "gkemulticloud_v1.yaml",
+    transport = "grpc+rest",
     deps = [
         ":gkemulticloud_ruby_grpc",
         ":gkemulticloud_ruby_proto",
@@ -330,6 +344,7 @@ ruby_gapic_assembly_pkg(
 ##############################################################################
 # C#
 ##############################################################################
+# buildifier: disable=same-origin-load
 load(
     "@com_google_googleapis_imports//:imports.bzl",
     "csharp_gapic_assembly_pkg",
@@ -340,6 +355,7 @@ load(
 
 csharp_proto_library(
     name = "gkemulticloud_csharp_proto",
+    extra_opts = [],
     deps = [":gkemulticloud_proto"],
 )
 
@@ -356,6 +372,7 @@ csharp_gapic_library(
     grpc_service_config = "gkemulticloud_grpc_service_config.json",
     rest_numeric_enums = False,
     service_yaml = "gkemulticloud_v1.yaml",
+    transport = "grpc+rest",
     deps = [
         ":gkemulticloud_csharp_grpc",
         ":gkemulticloud_csharp_proto",
@@ -375,6 +392,7 @@ csharp_gapic_assembly_pkg(
 ##############################################################################
 # C++
 ##############################################################################
+# buildifier: disable=same-origin-load
 load(
     "@com_google_googleapis_imports//:imports.bzl",
     "cc_grpc_library",

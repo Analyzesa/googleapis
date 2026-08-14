@@ -1,4 +1,4 @@
-// Copyright 2023 Google LLC
+// Copyright 2024 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -197,4 +197,10 @@ message LocationGroupInfo {
   // cannot be used with geo_target_constants. This is optional and can only be
   // set in CREATE operations.
   repeated string feed_item_sets = 8;
+}
+
+// An audience criterion.
+message AudienceInfo {
+  // The Audience resource name.
+  string audience = 1;
 }

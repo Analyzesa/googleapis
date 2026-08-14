@@ -9,19 +9,25 @@
 #    * extra_protoc_file_parameters
 # The complete list of preserved parameters can be found in the source code.
 
+# buildifier: disable=load-on-top
+
 # This is an API workspace, having public visibility by default makes perfect sense.
 package(default_visibility = ["//visibility:public"])
 
 ##############################################################################
 # Common
 ##############################################################################
-load("@rules_proto//proto:defs.bzl", "proto_library")
+# buildifier: disable=same-origin-load
 load("@com_google_googleapis_imports//:imports.bzl", "proto_library_with_info")
+load("@rules_proto//proto:defs.bzl", "proto_library")
 
 proto_library(
     name = "netapp_proto",
     srcs = [
         "active_directory.proto",
+        "backup.proto",
+        "backup_policy.proto",
+        "backup_vault.proto",
         "cloud_netapp_service.proto",
         "common.proto",
         "kms.proto",
@@ -55,6 +61,7 @@ proto_library_with_info(
 ##############################################################################
 # Java
 ##############################################################################
+# buildifier: disable=same-origin-load
 load(
     "@com_google_googleapis_imports//:imports.bzl",
     "java_gapic_assembly_gradle_pkg",
@@ -83,8 +90,8 @@ java_gapic_library(
     rest_numeric_enums = True,
     service_yaml = "netapp_v1.yaml",
     test_deps = [
-        "//google/cloud/location:location_java_grpc",
         ":netapp_java_grpc",
+        "//google/cloud/location:location_java_grpc",
     ],
     transport = "grpc+rest",
     deps = [
@@ -119,6 +126,7 @@ java_gapic_assembly_gradle_pkg(
 ##############################################################################
 # Go
 ##############################################################################
+# buildifier: disable=same-origin-load
 load(
     "@com_google_googleapis_imports//:imports.bzl",
     "go_gapic_assembly_pkg",
@@ -143,7 +151,7 @@ go_gapic_library(
     grpc_service_config = "netapp_v1_grpc_service_config.json",
     importpath = "cloud.google.com/go/netapp/apiv1;netapp",
     metadata = True,
-    release_level = "beta",
+    release_level = "ga",
     rest_numeric_enums = True,
     service_yaml = "netapp_v1.yaml",
     transport = "grpc+rest",
@@ -172,6 +180,7 @@ go_gapic_assembly_pkg(
 ##############################################################################
 # Python
 ##############################################################################
+# buildifier: disable=same-origin-load
 load(
     "@com_google_googleapis_imports//:imports.bzl",
     "py_gapic_assembly_pkg",
@@ -211,6 +220,7 @@ py_gapic_assembly_pkg(
 ##############################################################################
 # PHP
 ##############################################################################
+# buildifier: disable=same-origin-load
 load(
     "@com_google_googleapis_imports//:imports.bzl",
     "php_gapic_assembly_pkg",
@@ -248,6 +258,7 @@ php_gapic_assembly_pkg(
 ##############################################################################
 # Node.js
 ##############################################################################
+# buildifier: disable=same-origin-load
 load(
     "@com_google_googleapis_imports//:imports.bzl",
     "nodejs_gapic_assembly_pkg",
@@ -278,6 +289,7 @@ nodejs_gapic_assembly_pkg(
 ##############################################################################
 # Ruby
 ##############################################################################
+# buildifier: disable=same-origin-load
 load(
     "@com_google_googleapis_imports//:imports.bzl",
     "ruby_cloud_gapic_library",
@@ -301,9 +313,9 @@ ruby_cloud_gapic_library(
     name = "netapp_ruby_gapic",
     srcs = [":netapp_proto_with_info"],
     extra_protoc_parameters = [
-      "ruby-cloud-namespace-override=Netapp=NetApp",
-      "ruby-cloud-path-override=net_app=netapp",
-      "ruby-cloud-gem-name=google-cloud-netapp-v1"
+        "ruby-cloud-gem-name=google-cloud-netapp-v1",
+        "ruby-cloud-namespace-override=Netapp=NetApp",
+        "ruby-cloud-path-override=net_app=netapp",
     ],
     grpc_service_config = "netapp_v1_grpc_service_config.json",
     rest_numeric_enums = True,
@@ -328,6 +340,7 @@ ruby_gapic_assembly_pkg(
 ##############################################################################
 # C#
 ##############################################################################
+# buildifier: disable=same-origin-load
 load(
     "@com_google_googleapis_imports//:imports.bzl",
     "csharp_gapic_assembly_pkg",
@@ -338,6 +351,7 @@ load(
 
 csharp_proto_library(
     name = "netapp_csharp_proto",
+    extra_opts = [],
     deps = [":netapp_proto"],
 )
 
@@ -354,6 +368,7 @@ csharp_gapic_library(
     grpc_service_config = "netapp_v1_grpc_service_config.json",
     rest_numeric_enums = True,
     service_yaml = "netapp_v1.yaml",
+    transport = "grpc+rest",
     deps = [
         ":netapp_csharp_grpc",
         ":netapp_csharp_proto",
@@ -373,6 +388,7 @@ csharp_gapic_assembly_pkg(
 ##############################################################################
 # C++
 ##############################################################################
+# buildifier: disable=same-origin-load
 load(
     "@com_google_googleapis_imports//:imports.bzl",
     "cc_grpc_library",

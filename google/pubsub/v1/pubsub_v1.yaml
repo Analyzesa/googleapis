@@ -9,6 +9,9 @@ apis:
 - name: google.pubsub.v1.SchemaService
 - name: google.pubsub.v1.Subscriber
 
+types:
+- name: google.pubsub.v1.IngestionFailureEvent
+
 documentation:
   summary: |-
     Provides reliable, many-to-many, asynchronous messaging between
@@ -36,15 +39,6 @@ documentation:
       Note: This operation is designed to be used for building
       permission-aware UIs and command-line tools, not for authorization
       checking. This operation may "fail open" without warning.
-
-backend:
-  rules:
-  - selector: 'google.pubsub.v1.Publisher.*'
-    deadline: 120.0
-  - selector: google.pubsub.v1.Publisher.Publish
-    deadline: 25.0
-  - selector: 'google.pubsub.v1.Subscriber.*'
-    deadline: 120.0
 
 http:
   rules:

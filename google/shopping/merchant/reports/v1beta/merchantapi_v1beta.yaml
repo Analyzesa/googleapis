@@ -9,11 +9,6 @@ apis:
 documentation:
   summary: Programmatically manage your Merchant Center accounts.
 
-backend:
-  rules:
-  - selector: google.shopping.merchant.reports.v1beta.ReportService.Search
-    deadline: 300.0
-
 authentication:
   rules:
   - selector: google.shopping.merchant.reports.v1beta.ReportService.Search
@@ -29,20 +24,6 @@ publishing:
   doc_tag_prefix: merchantapi
   organization: SHOPPING
   library_settings:
-  - version: google.shopping.merchant.inventories.v1beta
-    launch_stage: BETA
-    java_settings:
-      common:
-        destinations:
-        - PACKAGE_MANAGER
-    php_settings:
-      common:
-        destinations:
-        - PACKAGE_MANAGER
-    python_settings:
-      common:
-        destinations:
-        - PACKAGE_MANAGER
   - version: google.shopping.merchant.reports.v1beta
     launch_stage: BETA
     java_settings:
@@ -54,6 +35,22 @@ publishing:
         destinations:
         - PACKAGE_MANAGER
     python_settings:
+      common:
+        destinations:
+        - PACKAGE_MANAGER
+    node_settings:
+      common:
+        destinations:
+        - PACKAGE_MANAGER
+    dotnet_settings:
+      common:
+        destinations:
+        - PACKAGE_MANAGER
+    ruby_settings:
+      common:
+        destinations:
+        - PACKAGE_MANAGER
+    go_settings:
       common:
         destinations:
         - PACKAGE_MANAGER

@@ -51,6 +51,7 @@ proto_library(
     name = "database_proto",
     srcs = [
         "backup.proto",
+        "backup_schedule.proto",
         "common.proto",
         "spanner_database_admin.proto",
     ],
@@ -63,6 +64,7 @@ proto_library(
         "//google/iam/v1:policy_proto",
         "//google/longrunning:operations_proto",
         "//google/rpc:status_proto",
+        "@com_google_protobuf//:duration_proto",
         "@com_google_protobuf//:empty_proto",
         "@com_google_protobuf//:field_mask_proto",
         "@com_google_protobuf//:timestamp_proto",
@@ -217,7 +219,7 @@ php_gapic_library(
     rest_numeric_enums = True,
     service_yaml = "spanner.yaml",
     transport = "grpc+rest",
-    migration_mode = "MIGRATION_MODE_UNSPECIFIED",
+    migration_mode = "MIGRATING",
     deps = [":database_php_proto"],
 )
 
