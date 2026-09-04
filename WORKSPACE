@@ -287,9 +287,9 @@ com_googleapis_gapic_generator_go_repositories()
 # rules_go and gazelle dependencies are loaded after gapic-generator-go
 # dependencies to ensure that they do not override any of the go_repository
 # dependencies of gapic-generator-go.
-load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
+load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies", "go_host_sdk")
 
-go_register_toolchains(version = "1.24.9")
+go_host_sdk(name = "go_sdk", version = "1.26.6")
 
 go_rules_dependencies()
 
